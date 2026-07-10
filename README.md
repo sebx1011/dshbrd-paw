@@ -1,6 +1,6 @@
 # Dashboard PAW
 
-Proyecto para el monitoreo y análisis de métricas del proceso de preadmisión hospitalaria.
+Proyecto para el monitoreo y análisis de métricas del proceso paw.
 
 ## Tecnologías
 
