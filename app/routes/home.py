@@ -4,4 +4,4 @@ home_bp = Blueprint('home', __name__)
 
 @home_bp.route('/')
 def home():
-    return 'Hello, World, alo!' 
+    return 'Hello, World, alo! del equipo UC' 
