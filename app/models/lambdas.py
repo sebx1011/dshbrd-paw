@@ -1,6 +1,7 @@
 from database.connection import get_connection
 
 def get_lambda(lambda_name):
+    
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT id FROM lambdas WHERE lambda_name = %s", (lambda_name,))
