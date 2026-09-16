@@ -19,3 +19,22 @@ def upsert_metrics(lambda_name, fecha, invocaciones, errores):
     cursor.close()
     conn.commit()
     conn.close()
+
+
+def get_invocaciones_lambdas():
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        select l.lambda_name, sum(invocaciones) 
+        from metrics as m 
+        inner join lambdas as l 
+        on m.lambda_id =l.id  
+        group by(l.lambda_name)
+    """)
+    
+    results = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    
+    return results
