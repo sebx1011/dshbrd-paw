@@ -38,3 +38,28 @@ def get_invocaciones_lambdas():
     conn.close()
     
     return results
+
+def get_tasa_exito():
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        select l.lambda_name, sum(m.invocaciones), sum(m.errores) 
+        from metrics as m 
+        inner join lambdas as l 
+        on m.lambda_id =l.id
+        group by(l.lambda_name) 
+    """)
+    
+    results = cursor.fetchall()
+    for i in range(len(results)):
+        lambda_name, invocaciones, errores = results[i]
+        if invocaciones > 0:
+            tasa_exito = round(((invocaciones - errores) / invocaciones) * 100, 2)
+        else:
+            tasa_exito = None
+        results[i] = (lambda_name, tasa_exito)
+    cursor.close()
+    conn.close()
+    
+    return results
